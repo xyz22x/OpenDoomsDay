@@ -1,0 +1,118 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.LayoutManager;
+import java.awt.font.TextAttribute;
+import java.util.Map;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public final class TitleBarPanel extends JPanel {
+   final DoomsdayGUI a_a;
+   private JPanel b;
+   public final C_dy a_dy_1;
+   final JLabel a_JLabel_2;
+   final JPanel a_JPanel_3;
+   private JPanel c;
+
+   public TitleBarPanel(DoomsdayGUI var1) {
+      this.a_a = var1;
+      this.setBackground(new Color(0, 0, 0));
+      this.b = DoomsdayGUI.b_JPanel_2();
+      this.b.setLayout(new BoxLayout(this.b, 1));
+      this.setLayout(new BorderLayout());
+      this.a_dy_1 = new C_dy();
+      this.a_dy_1.setPreferredSize(new Dimension(300, 115));
+      this.a_dy_1.setText("Inject");
+      this.a_dy_1.setFont(new Font(var1.a_Font_12.getName(), 1, var1.a_Font_12.getSize() << 1));
+      this.a_dy_1.a_Color = new Color(128, 0, 255);
+      this.a_dy_1.b_Color = new Color(128, 0, 255);
+      this.a_dy_1.setBorder(BorderFactory.createEmptyBorder());
+      this.a_dy_1.d_Color = new Color(86, 0, 173);
+      this.a_dy_1.e_Color = new Color(86, 0, 173);
+      this.a_dy_1.f = new Color(160, 80, 255);
+      this.a_dy_1.g = new Color(160, 80, 255);
+      this.a_dy_1.h = Color.WHITE;
+      this.a_dy_1.j = new Color(170, 100, 255);
+      this.a_dy_1.a_int_2 = 16;
+      this.a_dy_1.addActionListener(new C_bp(this));
+      this.a_dy_1.setEnabled(false);
+      this.c = DoomsdayGUI.a((LayoutManager)(new BorderLayout()));
+      JPanel var2 = DoomsdayGUI.b_JPanel_2();
+      this.a_JLabel_2 = var1.a_JLabel("Minecraft processes not found");
+      var2.add(this.a_JLabel_2);
+      this.c.add(var2, "North");
+      this.a_JPanel_3 = DoomsdayGUI.a_JPanel_3();
+      UITheme var8;
+      (var8 = new UITheme(this.a_JPanel_3)).getVerticalScrollBar().setUnitIncrement(8);
+      this.c.add(var8, "Center");
+      (var2 = DoomsdayGUI.b_JPanel_2()).add(this.a_dy_1);
+      this.c.add(var2, "South");
+      this.c.setMaximumSize(new Dimension(320, 300));
+      this.b.add(this.c);
+      (var2 = DoomsdayGUI.b_JPanel_2()).setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+      var2.setMinimumSize(new Dimension(Integer.MAX_VALUE, 30));
+      StringBuilder var3;
+      (var3 = new StringBuilder()).append('O');
+      var3.append('f');
+      var3.append('f');
+      var3.append('i');
+      var3.append('c');
+      var3.append('i');
+      var3.append('a');
+      var3.append('l');
+      var3.append(' ');
+      var3.append('s');
+      var3.append('i');
+      var3.append('t');
+      var3.append('e');
+      var3.append(':');
+      var2.add(var1.a_JLabel(var3.toString()));
+      var3.delete(0, var3.length());
+      var3.append('d');
+      var3.append('o');
+      var3.append('o');
+      var3.append('m');
+      var3.append('s');
+      var3.append('d');
+      var3.append('a');
+      var3.append('y');
+      var3.append('c');
+      var3.append('l');
+      var3.append('i');
+      var3.append('e');
+      var3.append('n');
+      var3.append('t');
+      var3.append('.');
+      var3.append('c');
+      var3.append('o');
+      var3.append('m');
+      JLabel var4;
+      (var4 = var1.a_JLabel(var3.toString())).setForeground(new Color(124, 180, 255));
+      Font var5 = var4.getFont();
+      Font var12;
+      if (!VersionSelectPanel.a_bool_4) {
+         Map var6;
+         (var6 = var4.getFont().getAttributes()).put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+         var12 = new Font(var6);
+      } else {
+         var12 = var5;
+      }
+
+      var4.addMouseListener(new C_cs(var3, var5, var12, var4));
+      var2.add(var4, "South");
+      JPanel var13;
+      (var13 = DoomsdayGUI.b_JPanel_2()).setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+      this.b.add(var13);
+      this.b.add(var2);
+      this.add(this.b, "Center");
+      (var2 = DoomsdayGUI.b_JPanel_2()).setLayout(new BorderLayout());
+      var2.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
+      JLabel var7 = var1.a_JLabel("v2.11");
+      var2.add(var7, "East");
+      this.add(var2, "South");
+   }
+}

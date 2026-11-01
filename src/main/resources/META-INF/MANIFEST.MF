@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Main-Class: DoomsdayGUI
+Class-Path: lib/jna.jar jna.jar
+SplashScreen-Image: l.png
+Premain-Class: UniversalBootstrapAgent
+Agent-Class: UniversalBootstrapAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+

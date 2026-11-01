@@ -1,0 +1,22 @@
+# Build output
+build/
+dist/
+
+# User-specific jars overlay
+custom_jars/*.jar
+
+# Logs and dumps
+*.log
+*.dmp
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS junk
+Thumbs.db
+.DS_Store
