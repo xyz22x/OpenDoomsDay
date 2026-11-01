@@ -1,143 +1,126 @@
-# Doomsday — Cracked by reversed
+# OpenDoomsDay
 
 <div align="center">
 
 ![Java](https://img.shields.io/badge/Java-17+-blue?style=flat-square)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)
 ![License](https://img.shields.io/badge/License-Unlicense-red?style=flat-square)
-![Release](https://img.shields.io/badge/Release-v2.11_cracked-purple?style=flat-square)
-
-**Injector de JAR customizado e agente Java — reconstruído 100% recompilável a partir do Doomsday.**
 
 </div>
 
----
+A clean, fully recompilable Java process injector reconstructed from the Doomsday
+client. Allows injecting custom `.jar` files and Java agents into running Java
+processes (`javaw.exe`), such as Minecraft (vanilla, Forge or Fabric).
 
-## 📋 Sobre
+## Features
 
-Projeto de engenharia reversa do **Doomsday** (doomsdayclient.com): as classes ofuscadas
-(`C_xx.java`) foram decompiladas, desofuscadas turno completo e agora **compilam com 0 erros**
-usando apenas um JDK 17+ e o JNA.
+- Injects custom `.jar` files or Java agents into running Java processes
+- Four injection modes: JVMTI Agent, Shellcode, Restart, Restart 2
+- Cross-platform: Windows, macOS and Linux, with x64, x86 and ARM support
+- Native memory hooks for reading and writing process memory
+- Universal bootstrap agent compiled for Java 8 bytecode, running on JVMs from 8 to 25+
+- Auto-updating process list with an integrated log console
+- Headless automation via CLI flags (`--autoinject`)
 
-O binário mantém **todas as funcionalidades** do original — nada foi removido, nada foi
-modificado no comportamento. As únicas mudanças estão em `DoomsdayGUI.java` (tema) e
-`TitleBarPanel.java` (botão Inject):
+## Download
 
-| Modificação | Detalhe |
-| :--- | :--- |
-| 🏷️ **Título da janela** | `"Cracked by reversed"` |
-| 🖼️ **Ícone da janela** | [avatar customizado](https://r2.fakecrime.bio/uploads/2d667995-bb93-4351-85f8-4e148eb6b44d.png) |
-| ⬛ **Fundo preto total** | Todos os painéis usam preto puro (`#000000`) |
-| 🟣 **Botão Inject** | Azul → **roxo** (`#8000FF` / hover `#A050FF`) |
+Prebuilt binaries are available on the
+[Releases page](https://github.com/xyz22x/OpenDoomsDay/releases):
 
-## ✨ Funcionalidades
-
-- **Injeção em processos Java** (`javaw.exe`) em execução: Minecraft Forge / Fabric / Vanilla
-- **Injeção de `.jar` customizado** ou agente Java em um processo alvo
-- **4 modos de injeção:** JVMTI Agent · Shellcode · Restart · Restart 2
-- **Multi-OS:** Windows / macOS / Linux, com suporte a ARM (aarch64) e x86
-- **Ganchos de memória** (ProcessMemoryHooks) para leitura/escrita nativa
-- **Bootstrap universal em Java 8**: funciona em JVMs de 8 a 25+
-- **Seletor de processos com auto-atualização** e console de logs integrado
-- **Auto-inject** via CLI (`--autoinject`) para automação full headless
-
-## 📥 Download
-
-Baixe o `.jar` **pré-compilado** na página de Releases ou compile você mesmo:
-
-> [**➡️ Releases — doomsday.jar**](../../releases)
-
-```cmd
-doomsday.jar                # executável standalone (Windows/Linux/macOS)
-jna.jar                     # copie pro mesmo diretório (necessário)
+```text
+doomsday.jar    standalone executable (Windows / macOS / Linux)
+jna.jar         required, place in the same directory
 ```
 
-## 🏗️ Build
+## Building
 
-Requisitos: **JDK 17+** (o script busca sozinho em `Program Files` os JDKs mais novos).
+Requirements: JDK 17+. The build scripts automatically locate the newest
+installed JDK under `C:\Program Files` (Adoptium, Liberica, Zulu or Oracle).
 
 ```powershell
 # PowerShell
 .\build.ps1
 
-# ou Batch
+# or Batch
 build.bat
 ```
 
-Saída: `dist\doomsday.jar` (307 classes) + cópia do JNA em `dist\`.
+Output: `dist\doomsday.jar` (307 classes) plus a copy of JNA in `dist\`.
 
-## 🚀 Uso
+## Usage
 
-### GUI (padrão)
+### GUI
 
 ```cmd
 run.bat
-:: ou
+:: or
 java -jar dist\doomsday.jar
 ```
 
-### Injetar um JAR específico
+### Injecting a specific JAR
 
 ```cmd
-run.bat C:\caminho\meu_agente.jar
-:: ou
-java -jar dist\doomsday.jar --jar="C:\caminho\meu_agente.jar"
+run.bat C:\path\to\agent.jar
+:: or
+java -jar dist\doomsday.jar --jar="C:\path\to\agent.jar"
 ```
 
-Também funciona **arrastar e soltar** o `.jar` sobre o `run.bat`.
+Drag and drop a `.jar` file onto `run.bat` also works.
 
-### Flags úteis
+### Ways to inject your own `.jar` files
 
-| Flag | Descrição |
+1. **Select JAR button** in the GUI, pick any `.jar` and press Inject
+2. **`custom_jars/` folder** — any `.jar` placed there shows up in the dropdown
+3. **Command line / drag and drop** as shown above
+
+### CLI flags
+
+| Flag | Description |
 | :--- | :--- |
-| `--autoinject` | injeta automaticamente em todos os procesos Minecraft encontrados |
-| `--allowrestart` | permite reiniciar o processo injetado |
-| `--jar=<caminho>` | JAR customizado para injeção |
-| `--offsets` | imprime offsets internos da JVM (JSON binário) e sai |
-| `--printenv` / `--printprops` | debug do ambiente / propriedades do sistema |
-| `--killpid=<num>` | força a finalização de um PID |
-| `--nostd` | suprime stdout/stderr (headless) |
+| `--autoinject` | automatically inject into all found Minecraft processes |
+| `--allowrestart` | allow restarting the injected process |
+| `--jar=<path>` | custom JAR to inject |
+| `--offsets` | print internal JVM offsets and exit |
+| `--printenv` / `--printprops` | dump environment / system properties |
+| `--killpid=<pid>` | force kill a process by PID |
+| `--nostd` | suppress stdout/stderr (headless) |
 
-## 🔧 Estrutura
+## Project structure
 
 ```text
-doomsday-cracked/
-├── src/main/java/        # ~305 fontes Java desofuscados e recompiláveis
-│   ├── DoomsdayGUI.java  # Interface principal e CLI
-│   ├── C_dy.java         # Botão customizado
-│   ├── TitleBarPanel.java# Barra lateral + botão Inject
-│   └── ...               # Injeção, JVMTI, shellcode, hooks nativos
-├── src/main/resources/   # Payloads embutidos, manifest, META-INF
-│   └── net/java/         # Binários nativos criptografados (JNA, agente)
-├── lib/jna.jar           # JNA 5.14.0 (dependência de acesso nativo)
-├── build.bat / build.ps1 # Scripts de compilação
-└── run.bat               # Launcher
+OpenDoomsDay/
+├── src/main/java/         ~305 deobfuscated, recompilable Java sources
+├── src/main/resources/    manifest, assets and embedded payloads
+│   └── net/java/          encrypted native binaries (agent, JNA, shellcode)
+├── lib/jna.jar            JNA 5.14.0 native access dependency
+├── build.bat / build.ps1  build scripts
+└── run.bat                launcher (auto-detects newest JDK)
 ```
 
-### Componentes principais
+### Core components
 
-| Componente | Classe |
+| Component | Classes |
 | :--- | :--- |
-| GUI / CLI | `DoomsdayGUI` |
-| Enumeração e attach ao processo | `ProcessAttacher`, `ProcessListManager` |
-| Injetor JVMTI / shellcode | `JvmtiInjector`, `ShellcodeLoader` |
-| Ganchos de memória nativa | `ProcessMemoryHooks`, `WinMemoryManager` |
-| Agente bootstrap multi-versão | `UniversalBootstrapAgent` |
-| Criptografia embutida | `CryptoUtil`, `JarEntryDecoder` |
+| GUI / CLI entry point | `DoomsdayGUI` |
+| Process enumeration and attach | `ProcessAttacher`, `ProcessListManager` |
+| JVMTI / shellcode injection | `JvmtiInjector`, `ShellcodeLoader` |
+| Native memory hooks | `ProcessMemoryHooks`, `WinMemoryManager` |
+| Universal bootstrap agent | `UniversalBootstrapAgent` |
+| Embedded crypto / payload decode | `CryptoUtil`, `JarEntryDecoder` |
 
-## ⚠️ Aviso legal
+## Legal notice
 
-Este projeto é disponibilizado **para fins educacionais e de pesquisa** apenas.
-O uso indevido de ferramentas de injeção pode violar os Termos de Serviço de
-qualquer produto. O autor original da ferramenta é o doomsdayclient.com; esta
-reversão não se apropria de nenhum serviço pago. Use por sua conta e risco.
+This project is provided for educational and research purposes only.
+Injecting software into other processes may violate the Terms of Service
+of any product. Credit for the original tool goes to doomsdayclient.com.
+Use at your own risk.
 
-## 🎲 Licença
+## License
 
-Unlicense — domínio público. Creditos ao projeto original Doomsday.
+Unlicense. See [LICENSE](LICENSE).
 
 ---
 
 <div align="center">
-<sub>Cracked by reversed — 2026</sub>
+<sub>reversed</sub>
 </div>
