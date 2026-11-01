@@ -32,9 +32,9 @@ modificado no comportamento. As únicas mudanças estão em `DoomsdayGUI.java` (
 
 ## ✨ Funcionalidades
 
-- **Injection em процесsos Java** (`javaw.exe`) em execução: Minecraft Forge / Fabric / Vanilla
+- **Injeção em processos Java** (`javaw.exe`) em execução: Minecraft Forge / Fabric / Vanilla
 - **Injeção de `.jar` customizado** ou agente Java em um processo alvo
-- **4 modos de insetion:** JVMTI Agent · Shellcode · Restart · Restart 2
+- **4 modos de injeção:** JVMTI Agent · Shellcode · Restart · Restart 2
 - **Multi-OS:** Windows / macOS / Linux, com suporte a ARM (aarch64) e x86
 - **Ganchos de memória** (ProcessMemoryHooks) para leitura/escrita nativa
 - **Bootstrap universal em Java 8**: funciona em JVMs de 8 a 25+
@@ -49,12 +49,12 @@ Baixe o `.jar` **pré-compilado** na página de Releases ou compile você mesmo:
 
 ```cmd
 doomsday.jar                # executável standalone (Windows/Linux/macOS)
-jna.jar                     # copie pro mesmo diretório ( necessário)
+jna.jar                     # copie pro mesmo diretório (necessário)
 ```
 
 ## 🏗️ Build
 
-Requisitos: **JDK 17+** (o script busca sozinhos em `Program Files` os JDKs mais novos).
+Requisitos: **JDK 17+** (o script busca sozinho em `Program Files` os JDKs mais novos).
 
 ```powershell
 # PowerShell
@@ -119,7 +119,7 @@ doomsday-cracked/
 | Componente | Classe |
 | :--- | :--- |
 | GUI / CLI | `DoomsdayGUI` |
-| Enumênciação e fixação ao processo | `ProcessAttacher`, `ProcessListManager` |
+| Enumeração e attach ao processo | `ProcessAttacher`, `ProcessListManager` |
 | Injetor JVMTI / shellcode | `JvmtiInjector`, `ShellcodeLoader` |
 | Ganchos de memória nativa | `ProcessMemoryHooks`, `WinMemoryManager` |
 | Agente bootstrap multi-versão | `UniversalBootstrapAgent` |
